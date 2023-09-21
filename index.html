@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ModaNova</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>ModaNova</h1>
+
+      <nav class="navbar">
+        <label for="toggle-menu"><i class="fa-solid fa-bars"></i></label>
+        <input type="checkbox" id="toggle-menu" />
+        <ul class="navbar-list">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="container-icon">
+        <div class="container-cart-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="icon-cart"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+          </svg>
+          <div class="count-products">
+            <span id="contador-productos">0</span>
+          </div>
+        </div>
+
+        <div class="container-cart-products hidden-cart">
+          <div class="row-product hidden">
+            <div class="cart-product">
+              <div class="info-cart-product">
+                <span class="cantidad-producto-carrito"></span>
+                <p class="titulo-producto-carrito"></p>
+                <span class="precio-producto-carrito"></span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="icon-close"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="cart-total hidden">
+            <h3>Total:</h3>
+            <span class="total-pagar"></span>
+          </div>
+          <p class="cart-empty">El carrito está vacío</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="nosotros">
+        <h2 class="welcome">Bienvenid@ a ModaNova</h2>
+        <p class="intro">
+          Descubre un mundo de elegancia y moda en ModaNova, tu nueva tienda de
+          ropa de confianza. Nos enorgullece presentar una colección única y
+          variada de prendas de vestir diseñadas para aquellos que buscan
+          expresar su estilo individual y abrazar las últimas tendencias.
+        </p>
+      </section>
+      <section id="Productos">
+        <h2>Productos</h2>
+        <div class="categories">
+          <button class="category active">Todos</button>
+          <button class="category" data-category="zapatillas">
+            Zapatillas
+          </button>
+          <button class="category" data-category="remeras">Remeras</button>
+          <button class="category" data-category="buzos">Buzos</button>
+          <button class="category" data-category="camperas">Camperas</button>
+        </div>
+        <div class="container-items"></div>
+        <button class="btn-load">Ver Más</button>
+      </section>
+
+      <section class="contactoyubi">
+        <div class="contacto">
+          <h2 class="nos">CONTACTA CON NOSOTROS</h2>
+          <form id="contacto" novalidate>
+            <div class="Dmail">
+              <label for="Email">Mail</label>
+              <input class="mail" type="email" id="Email" required />
+            </div>
+            <div class="info">
+              <label for="desarrolle">Consulta</label>
+              <textarea class="area" id="desarrolle" required></textarea>
+            </div>
+            <div class="enviar">
+              <button class="boton" type="submit">Enviar</button>
+            </div>
+          </form>
+          <div id="mensaje-exito" class="hidden">
+            Mensaje enviado con éxito.
+          </div>
+          <div id="errores" class="hidden"></div>
+        </div>
+
+        <div id="ubicacion">
+          <h2 class="sabes">¿DONDE ESTAMOS?</h2>
+          <p class="mapa">
+            Estamos ubicados en Palermo, Costa Rica 1111 y estamos abiertos de
+            lunes a vieres de 09:00hs a 18:00hs y sabados de 10:00hs a 16:00hs.
+          </p>
+          <div class="mapouter">
+            <div class="gmap_canvas">
+              <iframe
+                width="400"
+                height="370"
+                id="gmap_canvas"
+                src="https://maps.google.com/maps?q=palermo&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+              ></iframe
+              ><a href="https://online-timer.me/"></a><br />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footeramor">
+        <p>Hecho por Ignacio Poledo Paz</p>
+      </div>
+    </footer>
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
