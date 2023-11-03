@@ -485,15 +485,12 @@ function mostrarError(mensaje) {
   const errores = document.getElementById("errores");
   errores.classList.remove("hidden");
   errores.innerHTML = `<p>${mensaje}</p>`;
-
   // Limpiar el campo de consulta
   document.getElementById("desarrolle").value = "";
-
   setTimeout(() => {
     limpiarMensajes();
   }, 2000);
 }
-
 function mostrarMensajeExito() {
   const mensajeExito = document.getElementById("mensaje-exito");
   mensajeExito.classList.remove("hidden");
@@ -506,7 +503,6 @@ function mostrarMensajeExito() {
     limpiarMensajes();
   }, 1000);
 }
-
 const init = () => {
   renderProducts(appState.products[0]);
   showMoreBtn.addEventListener("click", showMoreProducts);
