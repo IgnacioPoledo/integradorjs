@@ -448,7 +448,7 @@ formularioContacto.addEventListener("submit", (event) => {
   // Si pasó todas las validaciones, mostramos el mensaje de éxito
   mostrarMensajeExito();
 
-  // Limpiamos los mensajes después de 5 segundos
+  // Limpiamos los mensajes después de 1 segundos
   setTimeout(() => {
     limpiarMensajes();
   }, 5000);
@@ -470,7 +470,7 @@ function mostrarMensajeExito() {
   mensajeExito.innerHTML = "Mensaje enviado con éxito.";
   setTimeout(() => {
     limpiarMensajes();
-  }, 1000);
+  }, 2000);
 }
 
 function limpiarMensajes() {
@@ -480,6 +480,31 @@ function limpiarMensajes() {
   const mensajeExito = document.getElementById("mensaje-exito");
   mensajeExito.classList.add("hidden");
   mensajeExito.innerHTML = "";
+}
+function mostrarError(mensaje) {
+  const errores = document.getElementById("errores");
+  errores.classList.remove("hidden");
+  errores.innerHTML = `<p>${mensaje}</p>`;
+
+  // Limpiar el campo de consulta
+  document.getElementById("desarrolle").value = "";
+
+  setTimeout(() => {
+    limpiarMensajes();
+  }, 2000);
+}
+
+function mostrarMensajeExito() {
+  const mensajeExito = document.getElementById("mensaje-exito");
+  mensajeExito.classList.remove("hidden");
+  mensajeExito.innerHTML = "Mensaje enviado con éxito.";
+
+  // Limpiar el campo de consulta
+  document.getElementById("desarrolle").value = "";
+
+  setTimeout(() => {
+    limpiarMensajes();
+  }, 1000);
 }
 
 const init = () => {
