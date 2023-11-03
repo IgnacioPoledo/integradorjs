@@ -21,6 +21,10 @@ const showMoreBtn = document.querySelector(".btn-load");
 const cartBubble = document.querySelector(".contador-productos");
 const countBubble = document.querySelector(".count-products");
 const barsMenu = document.querySelector(".navbar-list");
+const deletePrice = document.querySelector(".butt-down");
+const buyPrice = document.querySelector(".butt-up");
+const btnBuy = document.querySelector(".btn-buy");
+const btnClearCart = document.querySelector(".btn-clear-cart");
 
 const createProductTemplate = (product) => {
   const { id, name, price, cardImg } = product;
@@ -96,6 +100,14 @@ rowProduct.addEventListener("click", (e) => {
   }
 });
 
+const renderCart = () => {
+  if (!cart.length) {
+    productsCart.innerHTML = `<p class="empty-msg">No hay productos en el carrito.</p>`;
+    return;
+  }
+  productsCart.innerHTML = cart.map(createCartProductTemplate).join("");
+};
+
 // Funcion para mostrar  HTML
 const showHTML = () => {
   if (!allProducts.length) {
@@ -123,7 +135,7 @@ const showHTML = () => {
                 <span class="cantidad-producto-carrito">${product.quantity}</span>
                 <p class="titulo-producto-carrito">${product.title}</p>
                 <span class="precio-producto-carrito">${product.price}</span>
-            </div>
+
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -138,6 +150,10 @@ const showHTML = () => {
                     d="M6 18L18 6M6 6l12 12"
                 />
             </svg>
+            </div>
+            <button class="butt-up">+</button>
+            <button class="butt-down">-</button>
+          </div>
         `;
 
     rowProduct.append(containerProduct);
@@ -148,6 +164,189 @@ const showHTML = () => {
 
   valorTotal.innerText = `$${total}`;
   countProducts.innerText = totalOfProducts;
+};
+
+// función para habilitar o deshabilitar un boton segun corresponda
+
+const disablePrice = (price) => {
+  if (!cart.length) {
+    price.classList.add("disabled");
+  } else {
+    price.classList.remove("disabled");
+  }
+};
+// función para guardar el carrito en el localStorage
+const saveCart = () => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+};
+
+// Botones + -
+
+const createCartProductTemplate = (cartProduct) => {
+  const { id, name, price, img, quantity } = cartProduct;
+  return ` </div>
+  <div class="item-handler">
+  <span class="quantity-handler down" data-id=${id}>-</span>
+  <span class="item-quantity">${quantity}</span>
+  <span class="quantity-handler up" data-id=${id}>+</span>
+  </div>
+  `;
+};
+
+// Agregar una unidad a un producto que ya sta en el carrito
+
+const addUnitToProduct = (product) => {
+  cart = cart.map((cartProduct) =>
+    cartProduct.id === product.id
+      ? { ...cartProduct, quantity: cartProduct.quantity + 1 }
+      : cartProduct
+  );
+};
+
+// Boton para agregar una unidad dentro del carrito
+
+const handlePlusEvent = (productContainer) => {
+  const title = productContainer.querySelector(
+    ".titulo-producto-carrito"
+  ).textContent;
+
+  const product = allProducts.find((item) => item.title === title);
+  if (product) {
+    product.quantity++;
+    showHTML();
+  }
+};
+
+// Boton para sacar una unidad dentro del carrito
+
+const handleMinusEvent = (productContainer) => {
+  const title = productContainer.querySelector(
+    ".titulo-producto-carrito"
+  ).textContent;
+
+  const product = allProducts.find((item) => item.title === title);
+  if (product) {
+    if (product.quantity > 1) {
+      product.quantity--;
+    } else {
+      // Si la cantidad es 1, puedes eliminar el producto del carrito
+      allProducts = allProducts.filter((item) => item.title !== title);
+    }
+    showHTML();
+  }
+};
+
+// Agregar eventos a los botones "+" y "-"
+rowProduct.addEventListener("click", (e) => {
+  if (e.target.classList.contains("butt-up")) {
+    // Manejar el incremento de la cantidad de productos
+    handlePlusEvent(e.target.parentElement);
+  } else if (e.target.classList.contains("butt-down")) {
+    // Manejar el decremento de la cantidad de productos
+    handleMinusEvent(e.target.parentElement);
+  }
+});
+
+// Remover producto del carrito
+const removeProducFromCart = (product) => {
+  cart = cart.filter((item) => item.id !== product.id);
+  updateCartState();
+};
+// Restar unidad de producto en el carrito
+const subtractProductUnit = (product) => {
+  cart = cart.map((item) => {
+    return item.id === product.id
+      ? { ...item, quantity: Number(item.quantity) - 1 }
+      : item;
+  });
+};
+
+// Manejo de enventos de los botones + -
+
+const handleQuantity = (e) => {
+  if (e.target.classList.contains("down")) {
+    handleMinusEvent(e.target.dataset.id);
+  } else if (e.target.classList.contains("up")) {
+    handlePlusEvent(e.target.dataset.id);
+  }
+  updateCartState();
+};
+
+// Vaciar el carrito
+
+const resetCart = () => {
+  allProducts = [];
+  showHTML();
+};
+btnClearCart.addEventListener("click", () => {
+  resetCart();
+  alert("¡El carrito ha sido vaciado!");
+});
+
+// Completar compra o vaciar el carrito
+
+const completeCartAction = (confirmMsg, succesMsg) => {
+  if (!cart.length) return;
+  if (window.confirm(confirmMsg)) {
+    resetCartItems();
+    alert(succesMsg);
+  }
+};
+
+// Mensaje de compra exitosa
+const completeBuy = () => {
+  if (allProducts.length > 0) {
+    if (window.confirm("¿Desea completar su compra?")) {
+      resetCart(); // Llama a la función para vaciar el carrito
+      alert("¡Gracias por su compra!");
+    }
+  } else {
+    alert("El carrito está vacío. Agregue productos antes de comprar.");
+  }
+};
+
+btnBuy.addEventListener("click", completeBuy);
+
+// Mensaje de vaciado exitoso del carrito
+const deleteCart = () => {
+  if (allProducts.length > 0) {
+    if (window.confirm("¿Desea vaciar el carrito?")) {
+      resetCartItems();
+      alert("¡El carrito ha sido vaciado!");
+    }
+  } else {
+    alert("El carrito ya está vacío.");
+  }
+};
+
+btnClearCart.addEventListener("click", deleteCart);
+
+// Actualizar el estado del carrito
+const updateCartState = () => {
+  renderCart();
+  disablePrice(buyPrice);
+  disablePrice(deletePrice);
+  saveCart();
+  renderCartBubble();
+};
+
+// Renderizar el contador de productos en el carrito
+const renderCartBubble = () => {
+  const totalProducts = allProducts.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+  countBubble.textContent = totalProducts;
+  cartBubble.style.display = totalProducts > 0 ? "block" : "none";
+};
+
+// Función para habilitar o deshabilitar un botón según corresponda
+const disablePrices = (price) => {
+  if (allProducts.length === 0) {
+    price.classList.add("disabled");
+  } else {
+    price.classList.remove("disabled");
+  }
 };
 
 // Ver más //
@@ -262,7 +461,7 @@ function mostrarError(mensaje) {
 
   setTimeout(() => {
     limpiarMensajes();
-  }, 5000);
+  }, 1000);
 }
 
 function mostrarMensajeExito() {
@@ -271,7 +470,7 @@ function mostrarMensajeExito() {
   mensajeExito.innerHTML = "Mensaje enviado con éxito.";
   setTimeout(() => {
     limpiarMensajes();
-  }, 5000);
+  }, 1000);
 }
 
 function limpiarMensajes() {
@@ -287,7 +486,6 @@ const init = () => {
   renderProducts(appState.products[0]);
   showMoreBtn.addEventListener("click", showMoreProducts);
   categoriesContainer.addEventListener("click", applyFilter);
-  cartBtn.addEventListener("click", toggleCart);
   menuBtn.addEventListener("click", toggleMenu);
   window.addEventListener("scroll", closeOnScroll);
   barsMenu.addEventListener("click", closeOnClick);

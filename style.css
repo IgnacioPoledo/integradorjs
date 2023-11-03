@@ -167,6 +167,42 @@ header {
   font-weight: 900;
 }
 
+.butt-up {
+  background-color: #000;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+.butt-down {
+  background-color: #000;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-buy {
+  background-color: #000;
+  color: #fff;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-clear-cart {
+  background-color: #000;
+  color: #fff;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+}
+
 .hidden-cart {
   display: none;
 }
@@ -451,6 +487,8 @@ header {
   .container-items {
     margin-left: 5px;
     margin-right: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
   .navbar i {
     margin-left: 312px;
@@ -467,5 +505,33 @@ header {
   }
   #ubicacion {
     width: 100%;
+  }
+  .boton {
+    margin: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar i {
+    margin-left: 150px;
+  }
+  .container-items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .Dmail {
+    gap: 35px;
+  }
+  .mail {
+    width: 331px;
+  }
+  .info {
+    gap: 10px;
+  }
+  .area {
+    width: 331px;
+  }
+  .boton {
+    margin: 0;
   }
 }
