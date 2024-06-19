@@ -421,6 +421,21 @@ header {
   height: 100%;
   padding: 20px;
 }
+/* MEDIA QUERIES LAPTOP */
+@media (max-width: 1024px){
+.navbar {
+  margin-left: 154px;
+}
+h1 {
+  margin-left: 10px;
+}
+.container-icon {
+  margin-right: 10px;
+}
+.intro {
+  margin: 0 10px 0 10px;
+}
+}
 
 /* MEDIA QUERIES TABLET */
 
@@ -474,15 +489,23 @@ header {
 /* MEDIA QUERIES CELULAR */
 
 @media (max-width: 576px) {
+  header {
+    padding: 30px 0 35px 0;
+  }
+  .navbar i {
+    margin-left: 310px;
+  }
   h1 {
     margin-left: 5px;
   }
   .container-icon {
     margin-right: 5px;
   }
+  .container-cart-products {
+    width: 390px;
+  }
   .intro {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 8px 0 8px;
   }
   .container-items {
     margin-left: 5px;
@@ -490,21 +513,49 @@ header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
-  .navbar i {
-    margin-left: 312px;
+  .navbar {
+    margin-left: 2px;
   }
   .navbar-list {
     margin-left: 0;
   }
+  .categories{
+    width: 389px;
+    gap: 6px;
+
+  }
   .contactoyubi {
     display: flex;
     flex-direction: column;
+    margin: 0;
   }
   .contacto {
     width: 100%;
+    height: 380px;
+  }
+  .nos {
+    margin: 0;
+  }
+  .Dmail {
+    margin: 0;
+    width: 378px;
+  }
+  .mail {
+    width: 300px;
+  }
+  .info{
+    gap: 6px;
+    width: 378px;
   }
   #ubicacion {
     width: 100%;
+  }
+  .mapa {
+    margin: 0 15px 0 10px;
+  }
+  .mapouter {
+    display: flex;
+    width: 378px;
   }
   .boton {
     margin: 0;
@@ -513,7 +564,7 @@ header {
 
 @media (max-width: 450px) {
   .navbar i {
-    margin-left: 150px;
+    margin-left: 136px;
   }
   .container-items {
     display: grid;
